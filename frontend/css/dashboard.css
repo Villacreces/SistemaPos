@@ -1,0 +1,154 @@
+:root{
+    --verdeO:#1b4332;
+    --verdeM:#2a5f4a;
+    --verdeC:#4caf50;
+    --fondo-gris:#f4f6f9;
+}
+body{
+    background-color: var(--fondo-gris);
+    font-family: 'segoe ui', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+}
+
+/*Lateral side menu*/
+#sidebar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    max-width: 250px;
+    min-width: 250px;
+    height: 100hv;
+    background-color: var(--verdeO);
+    color: white;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+#sidebar .sidebar-header{
+    padding: 20px;
+    background: var(--verdeM);
+    border-bottom: 1px solid var(--verdeC);
+
+}
+
+#sidebar ul.components{
+    padding: 20px 0;
+    border-bottom: 1px solid var(--verdeC);
+}
+
+#sidebar ul p{
+    color: white;
+    padding: 10px;
+}
+#sidebar ul li a{
+    padding: 15px 20px;
+    font-size: 1.1em;
+    display: block;
+    color: #8df3dc;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+#sidebar ul li a:hover{
+    color: var(--verdeC);
+    background: var(--verdeM);
+    border-left: 3px solid var(--verdeC);
+}
+
+/*principal content*/
+#content{
+    width: 100%;
+    min-height: 100vh;
+    transform: all 0.3s ease;
+}
+
+/*close login button*/
+btn-logout{
+    background-color:#d90429;
+    color:white;
+    border: none
+}
+btn-logout:hover{
+    background-color:#ef233c;
+    color:white;
+}
+
+/*hover effect for links in the sidebar*/
+.menu-item{
+    transition: all 0.3s ease;
+    border-radius:8px;
+    padding: 12px 20px
+}
+
+.menu-item:hover{
+    background-color: var(--verdeM);
+    color: white;
+    transform: translateX(5px);
+    cursor: pointer;
+}
+
+/*Estilos para el pos*/
+.pos-container {
+    min-height: calc(100vh - 90px);
+}
+
+.panel-pos {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.buscador-pos {
+    height: 58px;
+    font-size: 1.2rem;
+    border: 2px solid var(--verdeM);
+}
+
+.buscador-pos:focus {
+    border-color: var(--verdeO);
+    box-shadow: 0 0 0 0.2rem rgba(27, 67, 50, 0.15);
+}
+
+.tabla-carrito th {
+    white-space: nowrap;
+}
+
+.cantidad-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cantidad-control span {
+    min-width: 30px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.resumen-total {
+    font-size: 1.1rem;
+}
+
+.total-final {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: var(--verdeO);
+}
+
+.btn-procesar {
+    background-color: var(--verdeO);
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 14px;
+}
+
+.btn-procesar:hover {
+    background-color: var(--verdeM);
+    color: white;
+}
+
+.cliente-seleccionado {
+    font-size: 0.95rem;
+    color: var(--verdeO);
+    font-weight: bold;
+}
