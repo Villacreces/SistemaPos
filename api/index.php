@@ -8,8 +8,8 @@ $path = trim((string)$path, '/');
 $basePath = __DIR__ . '/app';
 
 $routes = [
-    '' => $basePath . '/pages/login.php',
-    'index.php' => $basePath . '/pages/login.php',
+    '' => $basePath . '/pages/index.php',
+    'index.php' => $basePath . '/pages/index.php',
 
     'dashboard.php' => $basePath . '/pages/dashboard.php',
     'catalogo.php' => $basePath . '/pages/catalogo.php',
