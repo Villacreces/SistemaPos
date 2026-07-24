@@ -1,10 +1,48 @@
 <?php
-/*
-session_start();
-if (!isset($_SESSION['user_id'])) {
-    header('Location: dashboard.php');
-    exit();
-}*/
+
+declare(strict_types=1);
+
+$path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
+$path = trim((string)$path, '/');
+
+$basePath = dirname(__DIR__);
+
+$routes = [
+    '' => $basePath . '/app/pages/login.php',
+    'index.php' => $basePath . '/app/pages/login.php',
+
+    'dashboard.php' => $basePath . '/app/pages/dashboard.php',
+    'catalogo.php' => $basePath . '/app/pages/catalogo.php',
+    'clientes.php' => $basePath . '/app/pages/clientes.php',
+    'factura.php' => $basePath . '/app/pages/factura.php',
+    'historial.php' => $basePath . '/app/pages/historial.php',
+    'pos.php' => $basePath . '/app/pages/pos.php',
+
+    'backend/process_login.php' =>
+        $basePath . '/app/backend/process_login.php',
+
+    'backend/products.php' =>
+        $basePath . '/app/backend/products.php',
+
+    'backend/clients.php' =>
+        $basePath . '/app/backend/clients.php',
+];
+
+if (!isset($routes[$path])) {
+    http_response_code(404);
+    echo 'Página no encontrada';
+    exit;
+}
+
+$file = $routes[$path];
+
+if (!is_file($file)) {
+    http_response_code(500);
+    echo 'El archivo solicitado no existe en el servidor.';
+    exit;
+}
+
+require $file;
 ?>
 
 <!DOCTYPE html>
