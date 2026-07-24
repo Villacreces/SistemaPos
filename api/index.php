@@ -25,6 +25,7 @@ $routes = [
         $basePath . '/backend/logout.php',
 ];
 
+
 if (!array_key_exists($path, $routes)) {
     http_response_code(404);
     header('Content-Type: application/json; charset=utf-8');
