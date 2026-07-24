@@ -4,7 +4,7 @@ declare(strict_types=1);
 session_start();
 
 if (!isset($_SESSION['usuario_activo'])) {
-    header('Location: index.php');
+    header('Location: /index.php');
     exit();
 }
 
@@ -28,9 +28,10 @@ $usuario = $_SESSION['usuario_activo'];
 
 <body>
 
+    <?php
+    require_once __DIR__ . '/../backend/includes/sidebar.php';
+    ?>
 
-
-    <?php include 'backend/includes/sidebar.php'; ?>
     <main id="content" style="margin-left: 250px; width: calc(100% - 250px);">
         <nav class="navbar bg-white shadow-sm mb-4 p-3">
             <div class="container-fluid">

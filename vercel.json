@@ -1,4 +1,5 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "functions": {
     "api/index.php": {
       "runtime": "vercel-php@0.9.0"
@@ -6,7 +7,39 @@
   },
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/backend/:path*",
+      "destination": "/api/index.php"
+    },
+    {
+      "source": "/dashboard.php",
+      "destination": "/api/index.php"
+    },
+    {
+      "source": "/catalogo.php",
+      "destination": "/api/index.php"
+    },
+    {
+      "source": "/clientes.php",
+      "destination": "/api/index.php"
+    },
+    {
+      "source": "/factura.php",
+      "destination": "/api/index.php"
+    },
+    {
+      "source": "/historial.php",
+      "destination": "/api/index.php"
+    },
+    {
+      "source": "/pos.php",
+      "destination": "/api/index.php"
+    },
+    {
+      "source": "/index.php",
+      "destination": "/api/index.php"
+    },
+    {
+      "source": "/",
       "destination": "/api/index.php"
     }
   ]

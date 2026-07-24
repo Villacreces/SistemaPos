@@ -5,32 +5,34 @@ declare(strict_types=1);
 $path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
 $path = trim((string)$path, '/');
 
-$basePath = dirname(__DIR__);
+$basePath = __DIR__ . '/app';
 
 $routes = [
-    '' => $basePath . '/app/pages/login.php',
-    'index.php' => $basePath . '/app/pages/login.php',
+    '' => $basePath . '/pages/login.php',
+    'index.php' => $basePath . '/pages/login.php',
 
-    'dashboard.php' => $basePath . '/app/pages/dashboard.php',
-    'catalogo.php' => $basePath . '/app/pages/catalogo.php',
-    'clientes.php' => $basePath . '/app/pages/clientes.php',
-    'factura.php' => $basePath . '/app/pages/factura.php',
-    'historial.php' => $basePath . '/app/pages/historial.php',
-    'pos.php' => $basePath . '/app/pages/pos.php',
+    'dashboard.php' => $basePath . '/pages/dashboard.php',
+    'catalogo.php' => $basePath . '/pages/catalogo.php',
+    'clientes.php' => $basePath . '/pages/clientes.php',
+    'factura.php' => $basePath . '/pages/factura.php',
+    'historial.php' => $basePath . '/pages/historial.php',
+    'pos.php' => $basePath . '/pages/pos.php',
 
     'backend/process_login.php' =>
-        $basePath . '/app/backend/process_login.php',
+        $basePath . '/backend/process_login.php',
 
-    'backend/products.php' =>
-        $basePath . '/app/backend/products.php',
-
-    'backend/clients.php' =>
-        $basePath . '/app/backend/clients.php',
+    'backend/logout.php' =>
+        $basePath . '/backend/logout.php',
 ];
 
-if (!isset($routes[$path])) {
+if (!array_key_exists($path, $routes)) {
     http_response_code(404);
-    echo 'Página no encontrada';
+
+    echo json_encode([
+        'error' => 'Ruta no registrada',
+        'ruta_solicitada' => $path
+    ]);
+
     exit;
 }
 
@@ -38,7 +40,13 @@ $file = $routes[$path];
 
 if (!is_file($file)) {
     http_response_code(500);
-    echo 'El archivo solicitado no existe en el servidor.';
+
+    echo json_encode([
+        'error' => 'Archivo no encontrado',
+        'ruta_solicitada' => $path,
+        'archivo_buscado' => $file
+    ]);
+
     exit;
 }
 

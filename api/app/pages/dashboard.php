@@ -4,7 +4,7 @@ declare(strict_types=1);
 session_start();
 
 if (!isset($_SESSION['usuario_activo'])) {
-    header('Location: index.php');
+    header('Location: /index.php');
     exit();
 }
 
@@ -29,7 +29,9 @@ $usuario = $_SESSION['usuario_activo'];
 
 <body>
 
-    <?php include 'backend/includes/sidebar.php'; ?>
+    <?php
+    require_once __DIR__ . '/../backend/includes/sidebar.php';
+    ?>
 
     <main id="content" style="margin-left: 250px; width: calc(100% - 250px);">
 
@@ -48,7 +50,7 @@ $usuario = $_SESSION['usuario_activo'];
                         <?= ucfirst(htmlspecialchars($usuario['rol'])) ?>
                     </span>
 
-                    <a href="backend/logout.php" class="btn btn-danger">
+                    <a href="/backend/logout.php" class="btn btn-danger">
                         Cerrar sesión
                     </a>
 
