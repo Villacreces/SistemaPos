@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 $path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
-$path = trim((string)$path, '/');
+$path = trim((string) $path, '/');
 
 $basePath = __DIR__ . '/app';
 
@@ -27,6 +27,7 @@ $routes = [
 
 if (!array_key_exists($path, $routes)) {
     http_response_code(404);
+    header('Content-Type: application/json; charset=utf-8');
 
     echo json_encode([
         'error' => 'Ruta no registrada',
@@ -40,6 +41,7 @@ $file = $routes[$path];
 
 if (!is_file($file)) {
     http_response_code(500);
+    header('Content-Type: application/json; charset=utf-8');
 
     echo json_encode([
         'error' => 'Archivo no encontrado',
