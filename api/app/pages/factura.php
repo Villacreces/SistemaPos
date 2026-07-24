@@ -8,7 +8,7 @@ if (!isset($_SESSION['usuario_activo'])) {
     exit();
 }
 
-require_once 'backend/connection.php';
+require_once __DIR__ . '/../backend/connection.php';
 
 $ventaId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
@@ -401,7 +401,7 @@ $total = (float) $venta['total_factura'];
             Imprimir o guardar PDF
         </button>
 
-        <a href="pos.php" class="btn btn-secondary px-4">
+        <a href="/pos.php" class="btn btn-secondary px-4">
             Volver al POS
         </a>
     </div>

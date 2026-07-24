@@ -44,7 +44,7 @@ $usuario = $_SESSION['usuario_activo'];
 
             <div class="d-flex gap-2">
 
-                <a href="pos.php" class="btn btn-outline-secondary">
+                <a href="/pos.php" class="btn btn-outline-secondary">
                     Volver al POS
                 </a>
 
