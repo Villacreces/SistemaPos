@@ -32,7 +32,7 @@ if (!is_file($caPath)) {
     header('Content-Type: application/json; charset=utf-8');
 
     echo json_encode([
-        'error' => 'No se encontró el certificado raíz del sistema.',
+        'error' => 'No se encontró el certificado CA del sistema.',
         'ruta' => $caPath
     ]);
 
@@ -52,8 +52,7 @@ $options = [
     PDO::ATTR_EMULATE_PREPARES => false,
     PDO::ATTR_TIMEOUT => 20,
 
-    // Activa TLS usando el almacén de certificados del sistema.
-    PDO::MYSQL_ATTR_SSL_CA => $caPath
+    Pdo\Mysql::ATTR_SSL_CA => $caPath
 ];
 
 try {
