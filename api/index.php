@@ -1,12 +1,3 @@
-<?php
-
-declare(strict_types=1);
-
-$path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
-$path = trim((string) $path, '/');
-
-$basePath = __DIR__ . '/app';
-
 $routes = [
     '' => $basePath . '/pages/index.php',
     'index.php' => $basePath . '/pages/index.php',
@@ -23,6 +14,9 @@ $routes = [
 
     'backend/logout.php' =>
         $basePath . '/backend/logout.php',
+
+    'backend/test_network.php' =>
+        $basePath . '/backend/test_network.php',
 
     'backend/api_productos.php' =>
         $basePath . '/backend/api_productos.php',
@@ -44,7 +38,6 @@ $routes = [
 
     'backend/anular_venta.php' =>
         $basePath . '/backend/anular_venta.php',
-        
 ];
 
 if (!array_key_exists($path, $routes)) {
