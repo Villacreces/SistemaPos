@@ -19,24 +19,41 @@ if (
     header('Content-Type: application/json; charset=utf-8');
 
     echo json_encode([
-        'error' => 'Faltan variables de conexión.',
-        'host_configurado' => $host !== '',
-        'port_configurado' => $port !== '',
-        'database_configurada' => $dbname !== '',
-        'user_configurado' => $user !== '',
-        'password_configurado' => $password !== ''
+        'error' => 'Faltan variables de conexión a la base de datos.'
     ]);
 
     exit();
 }
 
-$dsn = "mysql:host={$host};port={$port};dbname={$dbname};charset=utf8mb4";
+$caPath = '/etc/ssl/certs/ca-certificates.crt';
+
+if (!is_file($caPath)) {
+    http_response_code(500);
+    header('Content-Type: application/json; charset=utf-8');
+
+    echo json_encode([
+        'error' => 'No se encontró el certificado raíz del sistema.',
+        'ruta' => $caPath
+    ]);
+
+    exit();
+}
+
+$dsn = sprintf(
+    'mysql:host=%s;port=%s;dbname=%s;charset=utf8mb4',
+    $host,
+    $port,
+    $dbname
+);
 
 $options = [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
     PDO::ATTR_EMULATE_PREPARES => false,
-    PDO::ATTR_TIMEOUT => 30
+    PDO::ATTR_TIMEOUT => 20,
+
+    // Activa TLS usando el almacén de certificados del sistema.
+    PDO::MYSQL_ATTR_SSL_CA => $caPath
 ];
 
 try {
