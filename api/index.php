@@ -1,3 +1,12 @@
+<?php
+
+declare(strict_types=1);
+
+$path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
+$path = trim((string) $path, '/');
+
+$basePath = __DIR__ . '/app';
+
 $routes = [
     '' => $basePath . '/pages/index.php',
     'index.php' => $basePath . '/pages/index.php',
@@ -49,7 +58,7 @@ if (!array_key_exists($path, $routes)) {
         'ruta_solicitada' => $path
     ]);
 
-    exit;
+    exit();
 }
 
 $file = $routes[$path];
@@ -64,7 +73,7 @@ if (!is_file($file)) {
         'archivo_buscado' => $file
     ]);
 
-    exit;
+    exit();
 }
 
 require $file;
