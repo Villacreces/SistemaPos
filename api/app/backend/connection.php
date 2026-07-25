@@ -2,41 +2,41 @@
 
 declare(strict_types=1);
 
-$host = getenv('DB_HOST');
-$port = getenv('DB_PORT') ?: '4000';
-$dbname = getenv('DB_NAME');
-$user = getenv('DB_USER');
-$password = getenv('DB_PASSWORD');
+$host = trim((string) getenv('DB_HOST'));
+$port = trim((string) (getenv('DB_PORT') ?: '4000'));
+$dbname = trim((string) getenv('DB_NAME'));
+$user = trim((string) getenv('DB_USER'));
+$password = (string) getenv('DB_PASSWORD');
 
 if (
-    !$host ||
-    !$dbname ||
-    !$user ||
-    $password === false ||
+    $host === '' ||
+    $port === '' ||
+    $dbname === '' ||
+    $user === '' ||
     $password === ''
 ) {
     http_response_code(500);
     header('Content-Type: application/json; charset=utf-8');
 
     echo json_encode([
-        'error' => 'Faltan variables de entorno para conectar con la base de datos.'
+        'error' => 'Faltan variables de conexión.',
+        'host_configurado' => $host !== '',
+        'port_configurado' => $port !== '',
+        'database_configurada' => $dbname !== '',
+        'user_configurado' => $user !== '',
+        'password_configurado' => $password !== ''
     ]);
 
     exit();
 }
 
-$dsn = sprintf(
-    'mysql:host=%s;port=%s;dbname=%s;charset=utf8mb4',
-    $host,
-    $port,
-    $dbname
-);
+$dsn = "mysql:host={$host};port={$port};dbname={$dbname};charset=utf8mb4";
 
 $options = [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
     PDO::ATTR_EMULATE_PREPARES => false,
-    PDO::ATTR_TIMEOUT => 15
+    PDO::ATTR_TIMEOUT => 30
 ];
 
 try {
@@ -51,7 +51,12 @@ try {
     header('Content-Type: application/json; charset=utf-8');
 
     echo json_encode([
-        'error' => 'Database connection failed: ' . $e->getMessage()
+        'error' => 'Database connection failed',
+        'detalle' => $e->getMessage(),
+        'host' => $host,
+        'port' => $port,
+        'database' => $dbname,
+        'user' => $user
     ]);
 
     exit();

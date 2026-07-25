@@ -44,8 +44,7 @@ $routes = [
 
     'backend/anular_venta.php' =>
         $basePath . '/backend/anular_venta.php',
-        'backend/test_connection.php' =>
-    $basePath . '/backend/test_connection.php',
+        
 ];
 
 if (!array_key_exists($path, $routes)) {
